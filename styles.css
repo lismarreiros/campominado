@@ -1,5 +1,19 @@
+.board > label {
+    box-shadow: -2px -2px #e0dede, -2px 0 #e0dede, 0 -2px #e0dede, -4px -4px white, -4px 0 white, 0 -4px white, 2px 2px #818181, 0 2px #818181, 2px 0 #818181,  2px -2px #e0dede, -2px 2px #818181, -4px 2px white, -4px 4px black, 4px 4px black, 4px 0 black, 0 4px black, 2px -4px white, 4px -4px black;
+}
+.board > label:active {
+    box-shadow: -2px -2px #818181, -2px 0 #818181, 0 -2px #818181, -4px -4px black, -4px 0 black, 0 -4px black, 2px 2px #e0dede, 0 2px #e0dede, 2px 0 #e0dede,  2px -2px #818181, -2px 2px #e0dede, -4px 2px black, -4px 4px white, 4px 4px white, 4px 0 white, 0 4px white, 2px -4px black, 4px -4px white;
+}
+
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    user-select: none;
+    font-weight: 300;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -38,8 +52,9 @@ body {
     justify-content: center;
     align-items: center;
     color: white;
-    border: 2px solid #BBB;
+    border: 3px inset;
     user-select: none;
+    padding: 4px 0 0 6px;
 }
 
 .board > [data-status="hidden"] {
@@ -48,7 +63,11 @@ body {
 }
 
 .board > [data-status="mine"] {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfiBhgXExWY7op1AAAA50lEQVRIx81Vyw7DMAwy/f9/Zoes8SPEjbbDFqnqIYAx9lazfz809oCrp3OIfCxwcNCYP0JiIWG8JR8BIwRoxolxABOYLqUE+sxU4aveMyGQ3uyURnFtHu/GZ/uBtYwRheReaGoUKYMYFwuIMcJNBvPGXSBMjk4XDpad9dDi8Lnkd93mWRysi8RU7941WClNQ3jqoqCq1hZy7Za8TtRX2TW3ErspDNsUFdUEqoPgvqZQ6N0m+tTHs9tA7SD8IkVdydkItCdxcgt85tc/q02I5x5UC5BiKPcbAeEXLerr78JzZqe5/Oy8ANEgWiM2Xe1LAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTA2LTI0VDIzOjE5OjIxLTA0OjAwgr2KdgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNi0yNFQyMzoxOToyMS0wNDowMPPgMsoAAAAASUVORK5CYII=);
+    background-size: 40px 40px;
+    background-position: 6px 6px;
     background-color: red;
+    background-repeat: no-repeat;
 }
 
 .board > [data-status="number"] {
