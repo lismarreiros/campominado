@@ -9,9 +9,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    user-select: none;
-    font-weight: 300;
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -75,5 +72,7 @@ body {
 }
 
 .board > [data-status="marked"] {
-    background-color: yellow;
+    background: url(assets/Minesweeper_flag.svg);
+    background-size: 56px 56px;
+    background-repeat: no-repeat;
 }
