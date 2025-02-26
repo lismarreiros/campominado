@@ -8,18 +8,17 @@ const TILE_STATUSES = {
 }
 
 const BOARD_SIZE = 10
-const NUMBER_OF_MINES = 10
-
+const NUMBER_OF_MINES = 4
 
 // função que cria um quadro
-export function createBoard(boardSize, numberOfMines) {
+function createBoard(boardSize, numberOfMines) {
     const board = []
     const minePositions = getMinePositions(boardSize, numberOfMines) // essa função vai dar x locais aleatórios, de acordo com o numéro de minhas, dentro da board, que vão ser minas!
     // vai ser uma arrays de valores
     for (let x = 0; x < boardSize; x++) {
         const row = [] 
         for (let y = 0; y < boardSize; y++) {
-            const element = document.createElement('radio')
+            const element = document.createElement('div')
             element.dataset.status = TILE_STATUSES.HIDDEN
             
             const tile = {
@@ -120,15 +119,24 @@ function revealTile(board, tile) {
    if (mines.length === 0) {
     adjancentTiles.forEach(revealTile.bind(null, board)) // vai ficar mostrando todos os tiles 'vazios' perto do primeiro apertado até que não tenhas mais o que revelar
    } else {
-    tile.element.textContent = mines.length
+    if (mines.length === 1) {
+        tile.element.style.backgroundImage = "url(assets/Minesweeper_1.svg.png)"
+        tile.element.style.backgroundSize = "46px 46px"
+        tile.element.style.backgroundNoRepeat = "none"
+    } else if (mines.length === 2) {
+        tile.element.style.backgroundImage = "url(assets/Minesweeper_2.svg.png)"
+        tile.element.style.backgroundSize = "46px 46px"
+        tile.element.style.backgroundNoRepeat = "none"
+    }
+
    }
 }
 
 function nearbyTiles(board, { x, y }) {
     const tiles = []
 
-    for(let xOffset = -1; xOffset <= 1; xOffset++) {
-        for(let yOffset = -1; yOffset <= 1; yOffset++) {
+    for (let xOffset = -1; xOffset <= 1; xOffset++) {
+        for (let yOffset = -1; yOffset <= 1; yOffset++) {
             const tile = board[x + xOffset]?.[y + yOffset] // pegar o tile daquele local! -1 1, ou seja do lado
             if (tile) tiles.push(tile)
         }

@@ -11,6 +11,8 @@
     padding: 0;
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: grayscale;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-size: 30px;
 }
 
 body {
@@ -18,7 +20,6 @@ body {
     background-color: #333;
     display: flex;
     align-items: center;
-    font-size: 3rem;
     flex-direction: column;
     color: white;
 }
@@ -29,17 +30,20 @@ body {
 
 .subtext {
     color: #CCC;
-    font-size: 1.5rem;
+    font-size: 1rem;
     margin-bottom: 10px;
 }
 
 .board {
     display: inline-grid;
-    padding: 10px;
-    grid-template-columns: repeat(var(--size), 60px);
-    grid-template-rows: repeat(var(--size), 60px);
-    gap: 4px;
-    background-color: #777;
+    padding: 5px;
+    grid-template-columns: repeat(var(--size), 50px);
+    grid-template-rows: repeat(var(--size), 50px);
+    background-color: #bdbdbd;
+    border-top: 1px solid #DFDFDF;
+    border-left: 1px solid #DFDFDF;
+    border-bottom: 1px solid #000000;
+    border-right: 1px solid #000000;
 }
 
 .board > * {
@@ -49,20 +53,24 @@ body {
     justify-content: center;
     align-items: center;
     color: white;
-    border: 3px inset;
+    border: 2px solid #888888;
     user-select: none;
     padding: 4px 0 0 6px;
 }
 
 .board > [data-status="hidden"] {
-    background-color: #BBB;
+    background-color: #c0c0c0;
+    border-top: 4px solid white;
+    border-left: 4px solid white;
+    border-right: 6px solid #8d8d8d;
+    border-bottom: 6px solid #8d8d8d;
     cursor: pointer;
 }
 
 .board > [data-status="mine"] {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfiBhgXExWY7op1AAAA50lEQVRIx81Vyw7DMAwy/f9/Zoes8SPEjbbDFqnqIYAx9lazfz809oCrp3OIfCxwcNCYP0JiIWG8JR8BIwRoxolxABOYLqUE+sxU4aveMyGQ3uyURnFtHu/GZ/uBtYwRheReaGoUKYMYFwuIMcJNBvPGXSBMjk4XDpad9dDi8Lnkd93mWRysi8RU7941WClNQ3jqoqCq1hZy7Za8TtRX2TW3ErspDNsUFdUEqoPgvqZQ6N0m+tTHs9tA7SD8IkVdydkItCdxcgt85tc/q02I5x5UC5BiKPcbAeEXLerr78JzZqe5/Oy8ANEgWiM2Xe1LAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTA2LTI0VDIzOjE5OjIxLTA0OjAwgr2KdgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNi0yNFQyMzoxOToyMS0wNDowMPPgMsoAAAAASUVORK5CYII=);
     background-size: 40px 40px;
-    background-position: 6px 6px;
+    background-position: 3px 3px;
     background-color: red;
     background-repeat: no-repeat;
 }
@@ -73,6 +81,6 @@ body {
 
 .board > [data-status="marked"] {
     background: url(assets/Minesweeper_flag.svg);
-    background-size: 56px 56px;
+    background-size: 46px 46px;
     background-repeat: no-repeat;
 }
