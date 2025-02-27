@@ -45,12 +45,88 @@
                                 </svg>
                             </div>
                         </button>
+                        <button class="button close">
+                            <div class="bevel">
+                                <svg width="12" height="10">
+                                    <use href="#close-icon"/>
+                                </svg>
+                            </div>
+                        </button>
                     </div>
+                    <div class="content-bevel">
+                        <div class="content">
+                            <h1>Hello, World!</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="grab n-grab"></div>
+                <div class="grab ne-grab"></div>
+                <div class="grab e-grab"></div>
+                <div class="grab se-grab"></div>
+                <div class="grab s-grab"></div>
+                <div class="grab sw-grab"></div>
+                <div class="grab w-grab"></div>
+                <div class="grab nw-grab"></div>
+            </div>
+        </template>
+        <template id="new-task-bar-item">
+            <div class="task-bar-item">
+                <div class="bevel">
+                    <svg class="icon" width="16" height="16">
+                        <use href="#default-window-icon-16"/>
+                    </svg>
+                    <div class="title">Window</div>
                 </div>
             </div>
         </template>
+        <div class="short-cuts">
+            <div class="short-cut">
+                <svg class="icon" width="32" height="32">
+                    <use href="#default-window-icon-32"/>
+                </svg>
+            </div>
+        </div>
+        <div class="task-bar">
+            <div class="bevel">
+                <div class="start-menu hidden">
+                    <div class="side-logo">
+                        <div class="text">
+                            <span class="windows">Windows</span>
+                            <span class="version">9X</span>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <ul>
+                            <li>
+                                <svg class="icon" width="24" height="24">
+                                    <use href="#programs-icon"/>
+                                </svg>
+                                <div class="text">
+                                    <span class="underline">P</span>rograms
+                                </div>
+                                <svg class="arrow" width="4" height="6" version="2.0">
+                                    <use href="#arrow-right"/>
+                                </svg>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="start-button">
+                    <div class="bevel">
+                        <svg class="icon" width="16" height="14">
+                            <use href="#windows-icon-15"/>
+                        </svg>
+                        Start
+                    </div>
+                </button>
+                <div class="task-bar-items"></div>
+                <div class="notification-area">
+                    <div class="clock"></div>
+                </div>
+            </div>
+        </div>
     </div>
-    <h3 class="title">Mineswepper</h3>
+    <!-- <h3 class="title">Mineswepper</h3>
     <div class="subtext">
         Mines left: <span data-mine-count></span>
     </div>
@@ -61,7 +137,8 @@
         <div class="header-buttons">
         </div>
     </div>
-    <div class="board"></div>
+    <div class="board"></div> -->
     <script type="module" src="./script.js"></script>
+    <!-- <script type="module" src="./mineswepper.js"></script> -->
 </body>
 </html>
