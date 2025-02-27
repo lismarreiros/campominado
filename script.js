@@ -200,37 +200,42 @@ function selectWindow(windowObject) {
     windows.push(windowObject);
 }
 
-
+// * antes de minimizar a janela - cria um pequeno deslocamento visual antes da animação de minimizar.
+// animatedTitleBar é um clone da barra de título da janela
 function beforeMinimize({ win }, animatedTitleBar) {
     animatedTitleBar.style.top = `${parseInt(win.style.top, 10)+4}px`;
     animatedTitleBar.style.left = `${parseInt(win.style.left, 10)+4}px`;
     animatedTitleBar.style.width = `${parseInt(win.style.width, 10)-8}px`;
 }
 
+// * finaliza a animação de minimizar movendo o 'animatedTitleBar' até a barra de tarefas. - efeito de encaixar a janela minimizada.
 function afterMinimize({ taskBarItem }, animatedTitleBar) {
     let taskBarRect = taskBarItem.getBoundingClientRect();
     animatedTitleBar.style.top = `${taskBarRect.top}px`;
     animatedTitleBar.style.left = `${taskBarRect.left}px`;
     animatedTitleBar.style.width = `${taskBarRect.width}px`;
 }
-  
+
+//*  finaliza a animação de maximização expandindo a barra animada para cobrir toda a tela. - efeito visual de expansão.
 function afterMaximize({ taskBarItem }, animatedTitleBar) {
     animatedTitleBar.style.top = `0px`;
     animatedTitleBar.style.left = `0px`;
     animatedTitleBar.style.width = `100%`;
 }
-  
+
+// * função para minimizar a tela 
 function minimizeWindow(windowObject) {
     let titleBar = windowObject.win.querySelector('.title-bar');
     let animatedTitleBar = titleBar.cloneNode(true);
     if (windowObject.win.classList.contains('maximized')) {
-      afterMaximize(windowObject, animatedTitleBar);
+      // * se já estiver maximizada, chama a afterMaximize() para que a animação de minimização comece do tamanho maximizado.
+      afterMaximize(windowObject, animatedTitleBar); 
     } else {
       beforeMinimize(windowObject, animatedTitleBar);
     }
     animatedTitleBar.classList.add('animating');
     desktop.appendChild(animatedTitleBar);
-    let taskBarRect = windowObject.taskBarItem.getBoundingClientRect();
+    // * inicia a animação
     setTimeout(() => {
       afterMinimize(windowObject, animatedTitleBar);
     }, 1);
@@ -241,10 +246,12 @@ function minimizeWindow(windowObject) {
       animatedTitleBar.remove();
     });
   }
-  
+
+// * restaura uma janela minimizada. 
 function unminimizeWindow(windowObject) {
     let titleBar = windowObject.win.querySelector('.title-bar');
     let animatedTitleBar = titleBar.cloneNode(true);
+    // * define a posição inicial do clone para a posição da barra de tarefas.
     afterMinimize(windowObject, animatedTitleBar);
     animatedTitleBar.classList.add('animating');
     desktop.appendChild(animatedTitleBar);
@@ -261,13 +268,13 @@ function unminimizeWindow(windowObject) {
     });
   }
   
+// * função que maximiza a tela
 function maximizeWindow(windowObject) {
     let titleBar = windowObject.win.querySelector('.title-bar');
     let animatedTitleBar = titleBar.cloneNode(true);
     beforeMinimize(windowObject, animatedTitleBar);
     animatedTitleBar.classList.add('animating');
     desktop.appendChild(animatedTitleBar);
-    let taskBarRect = windowObject.taskBarItem.getBoundingClientRect();
     setTimeout(() => {
       afterMaximize(windowObject, animatedTitleBar);
     }, 1);
@@ -277,13 +284,13 @@ function maximizeWindow(windowObject) {
     });
 }
 
+// * função que restaura uma janela maximizada.
 function unmaximizeWindow(windowObject) {
     let titleBar = windowObject.win.querySelector('.title-bar');
     let animatedTitleBar = titleBar.cloneNode(true);
     afterMaximize(windowObject, animatedTitleBar);
     animatedTitleBar.classList.add('animating');
     desktop.appendChild(animatedTitleBar);
-    let taskBarRect = windowObject.taskBarItem.getBoundingClientRect();
     setTimeout(() => {
       beforeMinimize(windowObject, animatedTitleBar);
     }, 1);
