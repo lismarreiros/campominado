@@ -490,8 +490,8 @@ html, body {
       padding: 1px;
       
       .clock {
-        margin-right: 10px;
-        min-width: 50px;
+        margin-right: 6px;
+        min-width: 40px;
         text-align: right;
       }
     }
