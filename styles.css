@@ -28,6 +28,7 @@ html, body {
   
   .short-cuts {
     margin-bottom: 28px;
+    margin-left: 12px;
   }
   
   .short-cut {
@@ -371,11 +372,11 @@ html, body {
       
       .side-logo {
         background-color: #87888F;
-        width: 21px;
-        min-height: 150px;
+        width: 31px;
+        min-height: 200px;
         
         .text {
-          font-size: 20px;
+          font-size: 18px;
           transform: rotate(-90deg) translate3d(-120px, -1px, 0);
         }
   

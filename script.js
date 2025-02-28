@@ -95,13 +95,14 @@ let windows = [];
 function dragMove(win, xMove, yMove, xSize, ySize) {
     let mouseX, mouseY;
     return event => {
-        if (win.classList.contains('maximized')) return;
-        mouseX = event.screenX;
+        if (win.classList.contains('maximized')) return; // * página maximizada - não permite mover ou redimensionar
+        // * armazena a posição do mouse quando o botão é pressionado
+        mouseX = event.screenX; 
         mouseY = event.screenY;
         const onMove = event => {
-            let x = event.screenX;
+            let x = event.screenX; // * nova posição
             let y = event.screenY;
-            let dx = x - mouseX;
+            let dx = x - mouseX; // * variação
             let dy = y - mouseY;
             let style = getComputedStyle(win);
             win.style.left = `${parseInt(style.left, 10) + dx * xMove}px`;
@@ -198,6 +199,13 @@ function selectWindow(windowObject) {
         unminimizeWindow(windowObject);
     }
     windows.push(windowObject);
+}
+
+// * fechar janela
+function closeWindow(windowObject) {
+    windows = windows.filter(w => w !== windowObject);
+    windowObject.win.remove();
+    windowObject.taskBarItem.remove();
 }
 
 // * antes de minimizar a janela - cria um pequeno deslocamento visual antes da animação de minimizar.
