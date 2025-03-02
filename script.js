@@ -318,11 +318,13 @@ function unmaximizeWindow(windowObject) {
 function addContent({ win }, type) {
     if (type === 'minesweeper') {
         let content = win.querySelector('.content');
-        let p = document.createElement('p');
-        p.textContent = 'jogo aqui';
-        content.appendChild(p);
+        let div = document.querySelector('.game');
+        content.appendChild(div);
     } else {
         let content = win.querySelector('.content');
+        let h1 = document.createElement('h1');
+        h1.textContent = 'Hello, World!';
+        content.appendChild(h1);
         let numberOfSections = Math.ceil(Math.random() * 5) + 5;
         let lastSectionTag = null;
         for (let i = 0; i < numberOfSections; i++) {
