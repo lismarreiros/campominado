@@ -71,7 +71,7 @@ setInterval(setClock, 1000);
 
 for (let shortCut of shortCuts) {
     shortCut.addEventListener('click', () => selectShortCut(shortCut));
-    shortCut.addEventListener('dblclick', () => execShortCut(shortCut));
+    shortCut.addEventListener('dblclick', execShortCut);
 }  
 
 function selectShortCut(shortCut) {
@@ -85,8 +85,9 @@ function selectShortCut(shortCut) {
     }
 }
 
-function execShortCut(shortCut) {
-    createWindow();
+function execShortCut() {
+    let type = event.currentTarget.id;
+    createWindow(type);
 }
 
 let windowIndex = 1;
@@ -122,18 +123,19 @@ function dragMove(win, xMove, yMove, xSize, ySize) {
     }
 }
 
-function createWindow() {
-    // * cria uma janela
+function createWindow(type = 'normal') {
+     // * cria uma janela
     let win = windowTemplate.content.cloneNode(true);
     win = win.querySelector('.window');
     desktop.appendChild(win);
+    console.log(type);
 
     // * cria um item na task bar
     let taskBarItem = taskBarItemTemplate.content.cloneNode(true);
     taskBarItem = taskBarItem.querySelector('.task-bar-item');
     taskBarItems.appendChild(taskBarItem);
-
-    let windowObject = { win, taskBarItem };
+    
+    let windowObject = { win, taskBarItem, type };
     windows.push(windowObject);
     
     // * short-cuts da janela
@@ -143,14 +145,19 @@ function createWindow() {
     
     // * título + número da página na janela e no taskBarItem 
     let titleBarText = win.querySelector('.title-bar .title');
-    let title = `Window #${windowIndex++}`;
+    
+    let title;
+    if (type == 'minesweeper') {
+        title = 'Minesweeper'
+    } else {
+        title = `Window #${windowIndex++}`
+    }
+
     titleBarText.textContent = title;
     taskBarItem.querySelector('.title').textContent = title; 
-    
     // * janela aberta - posição
     titleBarText.addEventListener('mousedown', dragMove(win, 1, 1, 0, 0));
     titleBarText.addEventListener('dblclick', () => toggleMaximize(windowObject)) // janela em tela cheia
-    
     win.querySelector('.n-grab').addEventListener('mousedown', dragMove(win, 0, 1, 0, -1));
     win.querySelector('.ne-grab').addEventListener('mousedown', dragMove(win, 0, 1, 1, -1));
     win.querySelector('.e-grab').addEventListener('mousedown', dragMove(win, 0, 0, 1, 0));
@@ -168,8 +175,8 @@ function createWindow() {
             selectWindow(windowObject);
         }
     });
-    
-    addContent(windowObject);
+
+    addContent(windowObject, type);
     selectWindow(windowObject);
 }
 
@@ -193,8 +200,8 @@ function selectWindow(windowObject) {
         t.classList.remove('active');
     }
     windowObject.win.classList.add('active');
-    windowObject.taskBarItem.classList.add('active');
     windowObject.win.style.zIndex = windows.length;
+    windowObject.taskBarItem.classList.add('active');
     if (windowObject.win.classList.contains('minimized')) {
         unminimizeWindow(windowObject);
     }
@@ -234,7 +241,7 @@ function afterMaximize({ taskBarItem }, animatedTitleBar) {
 // * função para minimizar a tela 
 function minimizeWindow(windowObject) {
     let titleBar = windowObject.win.querySelector('.title-bar');
-    let animatedTitleBar = titleBar.cloneNode(true);
+    let animatedTitleBar = titleBar.cloneNode(true)
     if (windowObject.win.classList.contains('maximized')) {
       // * se já estiver maximizada, chama a afterMaximize() para que a animação de minimização comece do tamanho maximizado.
       afterMaximize(windowObject, animatedTitleBar); 
@@ -258,11 +265,11 @@ function minimizeWindow(windowObject) {
 // * restaura uma janela minimizada. 
 function unminimizeWindow(windowObject) {
     let titleBar = windowObject.win.querySelector('.title-bar');
-    let animatedTitleBar = titleBar.cloneNode(true);
+    let animatedTitleBar = titleBar.cloneNode(true);  
     // * define a posição inicial do clone para a posição da barra de tarefas.
     afterMinimize(windowObject, animatedTitleBar);
     animatedTitleBar.classList.add('animating');
-    desktop.appendChild(animatedTitleBar);
+    desktop.appendChild(animatedTitleBar); 
     setTimeout(() => {
       if (windowObject.win.classList.contains('maximized')) {
         afterMaximize(windowObject, animatedTitleBar);
@@ -279,7 +286,7 @@ function unminimizeWindow(windowObject) {
 // * função que maximiza a tela
 function maximizeWindow(windowObject) {
     let titleBar = windowObject.win.querySelector('.title-bar');
-    let animatedTitleBar = titleBar.cloneNode(true);
+    let animatedTitleBar = titleBar.cloneNode(true); 
     beforeMinimize(windowObject, animatedTitleBar);
     animatedTitleBar.classList.add('animating');
     desktop.appendChild(animatedTitleBar);
@@ -308,25 +315,32 @@ function unmaximizeWindow(windowObject) {
     });
 }
 
-function addContent({ win }) {
-    let content = win.querySelector('.content'); 
-    let numberOfSections = Math.ceil(Math.random() * 5) + 5;
-    let lastSectionTag = null;
-    for (let i = 0; i < numberOfSections; i++) {
-        if (i > 0 && lastSectionTag !== 'img' && Math.random() > 0.5) {
-            lastSectionTag = 'p';
-            let img = document.createElement('img');
-            let width = Math.round((Math.random() * 300) + 300);
-            let height = Math.round((Math.random() * 200) + 200);
-            img.src = `https://loremflickr.com/${width}/${height}`;
-            content.appendChild(img);
-            lastSectionTag = 'img';
-        } else {
-            let p = document.createElement('p');
-            p.textContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-            content.appendChild(p);
+function addContent({ win }, type) {
+    if (type === 'minesweeper') {
+        let content = win.querySelector('.content');
+        let p = document.createElement('p');
+        p.textContent = 'jogo aqui';
+        content.appendChild(p);
+    } else {
+        let content = win.querySelector('.content');
+        let numberOfSections = Math.ceil(Math.random() * 5) + 5;
+        let lastSectionTag = null;
+        for (let i = 0; i < numberOfSections; i++) {
+            if (i > 0 && lastSectionTag !== 'img' && Math.random() > 0.5) {
+                lastSectionTag = 'p';
+                let img = document.createElement('img');
+                let width = Math.round((Math.random() * 300) + 300);
+                let height = Math.round((Math.random() * 200) + 200);
+                img.src = `https://loremflickr.com/${width}/${height}`;
+                content.appendChild(img);
+                lastSectionTag = 'img';
+            } else {
+                let p = document.createElement('p');
+                p.textContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+                content.appendChild(p);
+            }
         }
     }
 }
 
-createWindow();
+// createWindow();
