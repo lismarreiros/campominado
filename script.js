@@ -316,12 +316,14 @@ function unmaximizeWindow(windowObject) {
 }
 
 function addContent({ win }, type) {
+    let content = win.querySelector('.content');
+    
     if (type === 'minesweeper') {
-        let content = win.querySelector('.content');
-        let div = document.querySelector('.game');
-        content.appendChild(div);
+        let div = document.querySelector('.content'); 
+        let game = document.querySelector('.game');
+        div.appendChild(game);
+
     } else {
-        let content = win.querySelector('.content');
         let h1 = document.createElement('h1');
         h1.textContent = 'Hello, World!';
         content.appendChild(h1);
