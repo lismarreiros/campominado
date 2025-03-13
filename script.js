@@ -319,8 +319,11 @@ function addContent({ win }, type) {
     let content = win.querySelector('.content');
     
     if (type === 'minesweeper') {
+        win.style.width = '424px';
+        win.style.height = '484px';
         let div = document.querySelector('.content'); 
         let game = document.querySelector('.game');
+        div.style.padding = '0px';
         div.appendChild(game);
 
     } else {

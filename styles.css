@@ -572,31 +572,33 @@ html, body {
 .subtext {
     color: #CCC;
     font-size: 1rem;
-    margin-bottom: 10px;
+    background-color: #c0c0c0;
+    height: 40px;
 }
 
 .board {
     display: inline-grid;
     padding: 5px;
-    grid-template-columns: repeat(var(--size), 50px);
-    grid-template-rows: repeat(var(--size), 50px);
+    grid-template-columns: repeat(var(--size), 40px);
+    grid-template-rows: repeat(var(--size), 40px);
     background-color: #bdbdbd;
     border-top: 1px solid #DFDFDF;
     border-left: 1px solid #DFDFDF;
     border-bottom: 1px solid #000000;
     border-right: 1px solid #000000;
 }
-
+.game {
+  margin: 0;
+  gap: 0;
+}
 .board > * {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
     border: 2px solid #888888;
     user-select: none;
-    padding: 4px 0 0 6px;
 }
 
 .board > [data-status="hidden"] {
@@ -610,8 +612,8 @@ html, body {
 
 .board > [data-status="mine"] {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfiBhgXExWY7op1AAAA50lEQVRIx81Vyw7DMAwy/f9/Zoes8SPEjbbDFqnqIYAx9lazfz809oCrp3OIfCxwcNCYP0JiIWG8JR8BIwRoxolxABOYLqUE+sxU4aveMyGQ3uyURnFtHu/GZ/uBtYwRheReaGoUKYMYFwuIMcJNBvPGXSBMjk4XDpad9dDi8Lnkd93mWRysi8RU7941WClNQ3jqoqCq1hZy7Za8TtRX2TW3ErspDNsUFdUEqoPgvqZQ6N0m+tTHs9tA7SD8IkVdydkItCdxcgt85tc/q02I5x5UC5BiKPcbAeEXLerr78JzZqe5/Oy8ANEgWiM2Xe1LAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTA2LTI0VDIzOjE5OjIxLTA0OjAwgr2KdgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNi0yNFQyMzoxOToyMS0wNDowMPPgMsoAAAAASUVORK5CYII=);
-    background-size: 40px 40px;
-    background-position: 3px 3px;
+    background-size: 30px 30px;
+    background-position: center;
     background-color: red;
     background-repeat: no-repeat;
 }
@@ -622,6 +624,7 @@ html, body {
 
 .board > [data-status="marked"] {
     background: url(assets/Minesweeper_flag.svg);
-    background-size: 46px 46px;
+    background-size: 37px 37px;
     background-repeat: no-repeat;
 } 
+

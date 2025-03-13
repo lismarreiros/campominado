@@ -121,11 +121,11 @@ function revealTile(board, tile) {
  } else {
   if (mines.length === 1) {
       tile.element.style.backgroundImage = "url(assets/Minesweeper_1.svg.png)"
-      tile.element.style.backgroundSize = "46px 46px"
+      tile.element.style.backgroundSize = "39px 39px"
       tile.element.style.backgroundNoRepeat = "none"
   } else if (mines.length === 2) {
       tile.element.style.backgroundImage = "url(assets/Minesweeper_2.svg.png)"
-      tile.element.style.backgroundSize = "46px 46px"
+      tile.element.style.backgroundSize = "38px 38px"
       tile.element.style.backgroundNoRepeat = "none"
   }
 
